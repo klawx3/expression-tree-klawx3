@@ -31,13 +31,40 @@ public class KlawList<T> implements Iterator<T>,Iterable<T>{
     }
 
     public T getElement(long index){
+        if(lenght == 0){
+            throw new NoSuchElementException();
+        }
         if(index > lenght){
             throw new IndexOutOfBoundsException();
         }
+
         int i = 0;
-        KlawNode<T> node = null;
-        for(node = startNode; index > i ; node = node.nextKlawNode, i++){ }
-        return node.data;
+        KlawNode<T> auxNode = null;
+        for(auxNode = startNode; index > i ; auxNode = auxNode.nextKlawNode, i++){ }
+        return auxNode.data;
+    }
+
+    public void removeElement(long index){
+        if(lenght == 0){
+            throw new NoSuchElementException();
+        }
+        if(index > lenght){
+            throw new IndexOutOfBoundsException();
+        }
+        if(index == 0){ // optimize code
+            KlawNode<T> sNode = startNode;
+            startNode = startNode.nextKlawNode;
+            lenght--;
+            sNode = null;
+            return;
+        }
+        int i = 0;
+        KlawNode<T> auxNode = null;
+        for(auxNode = startNode; index - 1 > i ; auxNode = auxNode.nextKlawNode, i++){ }
+        KlawNode<T> lNode = auxNode.nextKlawNode;
+        auxNode.nextKlawNode = auxNode.nextKlawNode.nextKlawNode;
+        lNode = null;
+        lenght--;
     }
 
     public long getLenght(){
@@ -64,10 +91,10 @@ public class KlawList<T> implements Iterator<T>,Iterable<T>{
         searchIndex = 0;
         return this;
     }
-/*
+
     @Override
     public void remove() {
-
+        removeElement(searchIndex);
     }
-*/
+
 }

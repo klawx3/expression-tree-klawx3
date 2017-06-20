@@ -3,6 +3,10 @@ package com.klawx3.expressiontree;
 import com.klawx3.expressiontree.datastructure.KlawList;
 import com.klawx3.expressiontree.datastructure.KlawStack;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -17,18 +21,23 @@ public class Main {
         }
         */
 
+
+
         KlawList<String> lista = new KlawList<>();
         lista.addElement("Holi ^^");
         lista.addElement("Como ");
         lista.addElement("Estas ??");
 
-        for(String wea : lista){
-            System.out.println(wea);
-        }
-        for(String wea : lista){
-            System.out.println(wea);
-        }
+        lista.forEach(System.out::println);
 
+        Iterator<String> iterator = lista.iterator();
+        while(iterator.hasNext()){
+            if(iterator.next().equals("Como ")){
+                iterator.remove();
+            }
+        }
+        System.out.println("-after wea-");
+        lista.forEach(System.out::println);
 
     }
 }
